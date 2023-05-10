@@ -112,7 +112,7 @@ def crear_csv(lista:list, nombre_archivo:str):
             dato = "{0},{1},{2},{3}\n".format(personaje["name"],personaje["height"],personaje["mass"],personaje["gender"])
             archivo.write(dato)
 
-def opciones_menu():
+def opciones_menu() -> None:
     imprimir("""Opciones:
     \n1 - Lista de personajes(Ordenada por altura)
     \n2 - El personaje mas alto de cada genero
