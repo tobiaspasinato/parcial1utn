@@ -106,6 +106,12 @@ def buscar_personajes(lista:list, key:str):
     """)
     return mensaje
 
+def crear_csv(lista:list, nombre_archivo:str):
+    with open(nombre_archivo, "w") as archivo:
+        for personaje in lista:
+            dato = "{0},{1},{2},{3}\n".format(personaje["name"],personaje["height"],personaje["mass"],personaje["gender"])
+            archivo.write(dato)
+
 def opciones_menu():
     imprimir("""Opciones:
     \n1 - Lista de personajes(Ordenada por altura)
@@ -117,6 +123,8 @@ def opciones_menu():
     """)
 
 def menu_app(lista_personajes:list):
+    lista_csv = []
+    bandera_csv = False
     while True:
         opciones_menu()
         opcion = input("Cual opcion va a elegir? ")
@@ -126,14 +134,20 @@ def menu_app(lista_personajes:list):
                 case 0:
                     break
                 case 1:
-                    imprimir(ordenar(lista_personajes, "height"))
+                    lista_csv = ordenar(lista_personajes, "height")
+                    bandera_csv = True
                 case 2:
                     imprimir(personaje_mas_alto(lista_personajes))
                 case 3:
-                    imprimir(ordenar(lista_personajes, "mass"))
+                    ordenar(lista_personajes, "mass")
                 case 4:
                     imprimir(buscar_personajes(lista_personajes, "name"))
-    
+                case 5:
+                    if bandera_csv == False:
+                        print("Usted no uso todavia la opcion 1")
+                    else:
+                        crear_csv(lista_csv, "data.csv")
+
 def starwars_app(nombre_archivo:str):
     lista = listar_personajes(nombre_archivo)
     lista = normalizar_dato(lista)
