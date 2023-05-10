@@ -31,7 +31,7 @@ def normalizar_dato(lista:list):
         # notificamos que se actualizaron los datos
         print("Datos normalizados")
 
-def lista_personajes(nombre_archivo:str):
+def listar_personajes(nombre_archivo:str):
     with open(nombre_archivo, "r") as archivo:
         # buscamos el archivo Json
         data = json.load(archivo)
@@ -41,7 +41,7 @@ def lista_personajes(nombre_archivo:str):
         return lista_copia
         # retornamos la lista ya copiada
 
-def ordenado(lista:list, key:str):
+def ordenar(lista:list, key:str):
     opcion = input("Ordenar de manera ascendente (asc) o descendente (desc)? ").lower()
 
     while not re.search("asc|desc", opcion) or opcion == "":
@@ -83,26 +83,28 @@ def personaje_mas_alto(lista:list):
             if personaje["height"] > non_mas_alto:
                 non_mas_alto = personaje["height"]
                 nombre_non = personaje["name"]
-    imprimir(f"""Personaje masculino mas alto: {nombre_mele} | {mele_mas_alto}
+    mensaje = (f"""Personaje masculino mas alto: {nombre_mele} | {mele_mas_alto}
     \nPersonaje femenino mas alto: {nombre_female} | {female_mas_alta}
     \nPersonaje N/A mas alto: {nombre_non} | {non_mas_alto}
     """)
+    return mensaje
 
-def buscador_personajes(lista:list):
+def buscar_personajes(lista:list, key:str):
     buscar_personaje = input("Cual personaje quiere buscar? ")
 
     for personaje in lista:
-        if re.search(buscar_personaje, lista) != None:
-            nombre_personaje = lista["name"]
-            altura_personaje = lista["height"]
-            peso_personaje = lista["mass"]
-            genero_personaje = lista["gender"]
+        if re.search(buscar_personaje, personaje[key].lower()) != None:
+            nombre_personaje = personaje[key]
+            altura_personaje = personaje["height"]
+            peso_personaje = personaje["mass"]
+            genero_personaje = personaje["gender"]
             break
-    imprimir(f"""Nombre del personaje: {nombre_personaje}
+    mensaje = (f"""Nombre del personaje: {nombre_personaje}
     \nAltura del personaje: {altura_personaje}
     \nPeso del personaje: {peso_personaje}
     \nGenero del personaje: {genero_personaje}
     """)
+    return mensaje
 
 def opciones_menu():
     imprimir("""Opciones:
@@ -124,15 +126,15 @@ def menu_app(lista_personajes:list):
                 case 0:
                     break
                 case 1:
-                    ordenado(lista_personajes, "height")
+                    imprimir(ordenar(lista_personajes, "height"))
                 case 2:
-                    personaje_mas_alto(lista_personajes)
+                    imprimir(personaje_mas_alto(lista_personajes))
                 case 3:
-                    ordenado(lista_personajes, "mass")
+                    imprimir(ordenar(lista_personajes, "mass"))
                 case 4:
-                    buscador_personajes(lista_personajes)
+                    imprimir(buscar_personajes(lista_personajes, "name"))
     
 def starwars_app(nombre_archivo:str):
-    lista = lista_personajes(nombre_archivo)
+    lista = listar_personajes(nombre_archivo)
     lista = normalizar_dato(lista)
     menu_app(lista)
