@@ -2,10 +2,12 @@ import json
 import re
 
 def imprimir(message):
+    # va a obtener cualquier dato (mayormente str)
     # Imprime un mensaje
     print(message)
 
 def normalizar_dato(lista:list):
+    # obtiene una lista como parametro
     modificaciones = False
     # busca si la lista esta vacia
     if len(lista) == 0:
@@ -32,6 +34,7 @@ def normalizar_dato(lista:list):
         print("Datos normalizados")
 
 def listar_personajes(nombre_archivo:str):
+    # obtiene el nombre del archivo como parametro
     with open(nombre_archivo, "r") as archivo:
         # buscamos el archivo Json
         data = json.load(archivo)
@@ -42,6 +45,7 @@ def listar_personajes(nombre_archivo:str):
         # retornamos la lista ya copiada
 
 def ordenar(lista:list, key:str):
+    # va a obtener una lista y key como parametro
     opcion = input("Ordenar de manera ascendente (asc) o descendente (desc)? ").lower()
     # le pedimos al usuario de la consola que escriba la forma de ordenar la lisata
 
@@ -85,6 +89,7 @@ def ordenar(lista:list, key:str):
     # retornamos la lista ordenada para el uso de la exportacion al csv
 
 def personaje_mas_alto(lista:list):
+    # obtiene una lista como parametro
     mele_mas_alto = 0
     female_mas_alta = 0
     non_mas_alto = 0
@@ -125,6 +130,7 @@ def personaje_mas_alto(lista:list):
     # retornamos el mensaje para mostrarlo ejn consola despues
 
 def buscar_personajes(lista:list, key:str):
+    # va a obtener una lista y key como parametro
     buscar_personaje = input("Cual personaje quiere buscar? ")
     # le preguntamos al usuario de la consola el nombre del personaje que esta buscando
 
@@ -152,6 +158,7 @@ def buscar_personajes(lista:list, key:str):
     # retornamos el mensaje ya listo
 
 def crear_csv(lista:list, nombre_archivo:str):
+    # va a obtener una lista y nombre del archivo como parametro
     with open(nombre_archivo, "w") as archivo:
         # abrimos un archivo mediante "w"(que sobreescribe o en el caso de no esncontrar el elemento lo crea)
         for personaje in lista:
@@ -162,6 +169,7 @@ def crear_csv(lista:list, nombre_archivo:str):
             # hacemos que copie cada dato en el archivo csv
 
 def opciones_menu() -> None:
+    # sin parametros
     imprimir("""Opciones:
     \n1 - Lista de personajes(Ordenada por altura)
     \n2 - El personaje mas alto de cada genero
@@ -173,6 +181,7 @@ def opciones_menu() -> None:
     # imprime el menu cada vez que llamamos a la funcion
 
 def menu_app(lista_personajes:list):
+    # va a obtener una lista como parametro
     lista_csv = []
     # creamos una lista vacia para que guarde la lista de la opcion 1
     bandera_csv = False
@@ -218,7 +227,7 @@ def menu_app(lista_personajes:list):
                         # realiza la funcion con los parametros dados
 
 def starwars_app(nombre_archivo:str):
-    # le ingresamos el nombre del archivo
+    # le ingresamos el nombre del archivo como parametro
     lista = listar_personajes(nombre_archivo)
     # busca el archivo y lo exporta al programa
     lista = normalizar_dato(lista)
