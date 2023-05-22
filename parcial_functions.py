@@ -1,5 +1,6 @@
 import json
 import re
+from os import system
 
 def imprimir(message):
     # va a obtener cualquier dato (mayormente str)
